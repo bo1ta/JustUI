@@ -7,24 +7,25 @@
 
 import SwiftUI
 
+// MARK: - JustToggle
+
 public struct JustToggle: View {
   @Binding private var isToggled: Bool
-  
+
   private var title: String
-  private var toggleColor: Color = Color.accentColor
   private var subtitle: String?
   private var icon: Image?
-  private var variant: ToggleVariant = .default
-  
+  private var variant = ToggleVariant.default
+
   // MARK: - Init
-  
+
   public init(isToggled: Binding<Bool>, title: String) {
     _isToggled = isToggled
     self.title = title
   }
-  
+
   // MARK: - Body
-  
+
   public var body: some View {
     HStack {
       if let icon {
@@ -32,27 +33,26 @@ public struct JustToggle: View {
           .sizeAsIcon()
           .foregroundStyle(.secondary)
       }
-      
+
       VStack(alignment: .leading, spacing: .paddingSmall) {
         Text(title)
           .font(.body)
-        
+
         if let subtitle {
           Text(subtitle)
             .font(.caption)
             .foregroundStyle(.secondary)
         }
       }
-      
+
       Spacer()
-      
+
       switch variant {
       case .default, .switch:
         JustSwitch(isOn: $isToggled)
       case .checkbox:
         JustCheckbox(isChecked: $isToggled)
       }
-  
     }
     .padding(.horizontal, .screenEdgePadding)
     .padding(.vertical, .paddingSmall)
@@ -67,13 +67,13 @@ extension JustToggle {
     toggle.variant = variant
     return toggle
   }
-  
+
   public func withSubtitle(_ subtitle: String) -> Self {
     var toggle = self
     toggle.subtitle = subtitle
     return toggle
   }
-  
+
   public func withIcon(_ icon: Image) -> Self {
     var toggle = self
     toggle.icon = icon
@@ -85,7 +85,7 @@ extension JustToggle {
 
 #Preview {
   @Previewable @State var isOn = false
-  
+
   JustToggle(isToggled: $isOn, title: "Enable notifications")
   JustToggle(isToggled: $isOn, title: "Enable notifications")
     .variant(.checkbox)

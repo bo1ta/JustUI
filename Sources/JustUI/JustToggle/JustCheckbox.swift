@@ -9,11 +9,11 @@ import SwiftUI
 
 public struct JustCheckbox: View {
   @Binding private var isChecked: Bool
-  
+
   public init(isChecked: Binding<Bool>) {
     self._isChecked = isChecked
   }
-  
+
   public var body: some View {
     Image(systemName: "checkmark")
       .font(.system(size: 14, weight: .bold))

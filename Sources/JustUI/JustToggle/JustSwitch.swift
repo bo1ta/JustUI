@@ -9,17 +9,17 @@ import SwiftUI
 
 public struct JustSwitch: View {
   @Binding private var isOn: Bool
-  
+
   public init(isOn: Binding<Bool>) {
     _isOn = isOn
   }
-  
+
   public var body: some View {
     HStack {
       if isOn {
         Spacer()
       }
-      
+
       Circle()
         .fill(.white)
         .onTapGesture {
@@ -30,7 +30,7 @@ public struct JustSwitch: View {
         .shadow(radius: 1.0)
         .padding(.paddingExtraSmall)
         .animation(.bouncy(duration: 0.2, extraBounce: 0.2), value: isOn)
-      
+
       if !isOn {
         Spacer()
       }
@@ -41,7 +41,6 @@ public struct JustSwitch: View {
     .frame(width: 55, height: 30)
   }
 }
-
 
 #Preview {
   @Previewable @State var isOn = false

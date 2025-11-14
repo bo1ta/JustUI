@@ -14,16 +14,15 @@ public struct JustButtonStyle: ButtonStyle {
   let size: ButtonSize
   let fullWidth: Bool
   let isEnabled: Bool
-  
+
   private var backgroundGradient: LinearGradient {
     guard isEnabled else {
       return LinearGradient(
         colors: [.gray.opacity(0.3), .gray.opacity(0.2)],
         startPoint: .top,
-        endPoint: .bottom
-      )
+        endPoint: .bottom)
     }
-    
+
     let baseColor: Color
     switch variant {
     case .plain:
@@ -37,27 +36,25 @@ public struct JustButtonStyle: ButtonStyle {
     case .success:
       baseColor = .green
     }
-    
+
     return LinearGradient(
       colors: [
         baseColor.opacity(0.9),
         baseColor,
-        baseColor.opacity(0.95)
+        baseColor.opacity(0.95),
       ],
       startPoint: .topLeading,
-      endPoint: .bottomTrailing
-    )
+      endPoint: .bottomTrailing)
   }
-  
+
   private var pressedGradient: LinearGradient {
     guard isEnabled else {
       return LinearGradient(
         colors: [.gray.opacity(0.25), .gray.opacity(0.15)],
         startPoint: .top,
-        endPoint: .bottom
-      )
+        endPoint: .bottom)
     }
-    
+
     let baseColor: Color
     switch variant {
     case .plain:
@@ -71,21 +68,20 @@ public struct JustButtonStyle: ButtonStyle {
     case .success:
       baseColor = .green
     }
-    
+
     return LinearGradient(
       colors: [
         baseColor.opacity(0.8),
         baseColor.opacity(0.7),
-        baseColor.opacity(0.75)
+        baseColor.opacity(0.75),
       ],
       startPoint: .topLeading,
-      endPoint: .bottomTrailing
-    )
+      endPoint: .bottomTrailing)
   }
-  
+
   private var foregroundColor: Color {
     guard isEnabled else { return .gray }
-    
+
     switch variant {
     case .plain:
       return .black
@@ -99,26 +95,26 @@ public struct JustButtonStyle: ButtonStyle {
       return .white
     }
   }
-  
+
   private var shadowRadius: CGFloat {
     switch variant {
     case .plain, .secondary:
       0
     default:
-        .shadowRadiusExtraSmall
+      .shadowRadiusExtraSmall
     }
   }
-  
+
   private var borderColor: Color {
     guard isEnabled else { return .gray }
-    
+
     switch variant {
     case .plain, .primary, .danger, .success:
       return .clear
     case .secondary: return .accentColor
     }
   }
-  
+
   public func makeBody(configuration: Configuration) -> some View {
     configuration.label
       .font(size.font)
@@ -128,12 +124,10 @@ public struct JustButtonStyle: ButtonStyle {
       .padding(size.padding)
       .background(
         configuration.isPressed ? pressedGradient : backgroundGradient,
-        in: .rect(cornerRadius: .cornerRadiusLarge)
-      )
+        in: .rect(cornerRadius: .cornerRadiusLarge))
       .overlay(
         RoundedRectangle(cornerRadius: .cornerRadiusLarge)
-          .stroke(borderColor, lineWidth: variant == .secondary ? 2 : 0)
-      )
+          .stroke(borderColor, lineWidth: variant == .secondary ? 2 : 0))
       .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
       .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
       .shadow(radius: .shadowRadiusSmall)

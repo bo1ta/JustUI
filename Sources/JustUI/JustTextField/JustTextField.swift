@@ -7,25 +7,27 @@
 
 import SwiftUI
 
+// MARK: - JustTextField
+
 public struct JustTextField: View {
   private var text: Binding<String>
   private var textHint: String
-  private var variant: TextFieldVariant = .default
-  private var validationState: TextFieldValidationState = .default
-  private var isEnabled: Bool = true
+  private var variant = TextFieldVariant.default
+  private var validationState = TextFieldValidationState.default
+  private var isEnabled = true
   private var title: String?
   private var leadingIcon: Image?
   private var trailingIcon: Image?
-  private var showClearButton: Bool = false
+  private var showClearButton = false
   private var onClear: (() -> Void)?
-  
+
   // MARK: - Computed properties
-  
+
   private var iconColor: Color {
     guard isEnabled else {
       return .gray
     }
-    
+
     switch validationState {
     case .default:
       return .gray
@@ -37,12 +39,12 @@ public struct JustTextField: View {
       return .orange
     }
   }
-  
+
   private var backgroundColor: Color {
     guard isEnabled else {
       return .gray.opacity(0.1)
     }
-    
+
     switch validationState {
     case .default:
       return .white
@@ -54,12 +56,12 @@ public struct JustTextField: View {
       return .orange.opacity(0.05)
     }
   }
-  
+
   private var borderColor: Color {
     guard isEnabled else {
       return .gray.opacity(0.3)
     }
-    
+
     switch validationState {
     case .default:
       return .gray.opacity(0.3)
@@ -71,25 +73,25 @@ public struct JustTextField: View {
       return .orange
     }
   }
-  
+
   private var borderWidth: CGFloat {
     switch validationState {
     case .default:
-      return 0.6
+      0.6
     default:
-      return 1.4
+      1.4
     }
   }
-  
+
   // MARK: - Init
-  
+
   public init(_ textHint: String = "", text: Binding<String>) {
     self.textHint = textHint
     self.text = text
   }
-  
+
   // MARK: - Body
-  
+
   public var body: some View {
     HStack(spacing: .paddingMedium) {
       if let leadingIcon {
@@ -97,7 +99,7 @@ public struct JustTextField: View {
           .sizeAsIcon()
           .foregroundStyle(iconColor)
       }
-      
+
       VStack(spacing: .paddingSmall) {
         if let title {
           Text(title)
@@ -105,7 +107,7 @@ public struct JustTextField: View {
             .fontWeight(.medium)
             .foregroundStyle(iconColor)
         }
-        
+
         if variant == .secure {
           SecureField(text: text, prompt: nil) {
             Text(textHint)
@@ -120,7 +122,7 @@ public struct JustTextField: View {
           }
         }
       }
-      
+
       if showClearButton, let onClear {
         Button(action: onClear) {
           Image(systemName: "xmark.circle.fill")
@@ -138,8 +140,7 @@ public struct JustTextField: View {
     .background(backgroundColor, in: .rect(cornerRadius: .cornerRadiusLarge))
     .overlay(
       RoundedRectangle(cornerRadius: .cornerRadiusLarge)
-        .strokeBorder(borderColor, lineWidth: borderWidth)
-    )
+        .strokeBorder(borderColor, lineWidth: borderWidth))
     .padding(.horizontal, .screenEdgePadding)
     .padding(.vertical, .paddingSmall)
     .shadow(radius: .shadowRadiusExtraSmall)
@@ -154,45 +155,44 @@ extension JustTextField {
     textField.variant = variant
     return textField
   }
-  
+
   public func validationState(_ state: TextFieldValidationState) -> Self {
     var textField = self
     textField.validationState = state
     return textField
   }
-  
+
   public func isEnabled(_ isEnabled: Bool) -> Self {
     var textField = self
     textField.isEnabled = isEnabled
     return textField
   }
-  
+
   public func withLeadingIcon(_ icon: Image) -> Self {
     var textField = self
     textField.leadingIcon = icon
     return textField
   }
-  
+
   public func withTrailingIcon(_ icon: Image) -> Self {
     var textField = self
     textField.trailingIcon = icon
     return textField
   }
-  
+
   public func withClearButton(onClear: @escaping () -> Void) -> Self {
     var textField = self
     textField.showClearButton = true
     textField.onClear = onClear
     return textField
   }
-  
+
   public func withTitle(_ title: String?) -> Self {
     var textField = self
     textField.title = title
     return textField
   }
 }
-
 
 // MARK: - Preview
 

@@ -11,24 +11,24 @@ public enum ButtonSize {
   case small
   case medium
   case large
-  
+
   var padding: CGFloat {
     switch self {
     case .small:
-        .paddingMedium
+      .paddingMedium
     case .medium:
-        .paddingLarge
+      .paddingLarge
     case .large:
-        .paddingExtraLarge
+      .paddingExtraLarge
     }
   }
-  
+
   var font: Font {
     switch self {
     case .small, .medium:
-        .body
+      .body
     case .large:
-        .title3
+      .title3
     }
   }
 }

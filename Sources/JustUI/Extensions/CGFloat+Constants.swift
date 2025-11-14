@@ -47,7 +47,7 @@ extension CGFloat {
   public static let iconSizeLarge: CGFloat = 32.0
   public static let iconSizeExtraLarge: CGFloat = 36.0
   public static let iconSizeJumbo: CGFloat = 48.0
-  
+
   // MARK: Shadow Radius
   public static let shadowRadiusExtraSmall: CGFloat = 1
   public static let shadowRadiusSmall: CGFloat = 3
