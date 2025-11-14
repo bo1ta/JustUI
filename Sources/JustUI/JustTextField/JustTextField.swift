@@ -42,7 +42,7 @@ public struct JustTextField: View {
     guard isEnabled else {
       return .gray.opacity(0.1)
     }
-
+    
     switch validationState {
     case .default:
       return .white
@@ -54,12 +54,12 @@ public struct JustTextField: View {
       return .orange.opacity(0.05)
     }
   }
-
+  
   private var borderColor: Color {
     guard isEnabled else {
       return .gray.opacity(0.3)
     }
-
+    
     switch validationState {
     case .default:
       return .gray.opacity(0.3)
@@ -71,7 +71,7 @@ public struct JustTextField: View {
       return .orange
     }
   }
-
+  
   private var borderWidth: CGFloat {
     switch validationState {
     case .default:
@@ -106,10 +106,18 @@ public struct JustTextField: View {
             .foregroundStyle(iconColor)
         }
         
-        TextField(text: text, prompt: nil) {
-          Text(textHint)
-            .font(.footnote)
-            .foregroundStyle(iconColor.opacity(0.5))
+        if variant == .secure {
+          SecureField(text: text, prompt: nil) {
+            Text(textHint)
+              .font(.footnote)
+              .foregroundStyle(iconColor.opacity(0.5))
+          }
+        } else {
+          TextField(text: text, prompt: nil) {
+            Text(textHint)
+              .font(.footnote)
+              .foregroundStyle(iconColor.opacity(0.5))
+          }
         }
       }
       
@@ -146,38 +154,38 @@ extension JustTextField {
     textField.variant = variant
     return textField
   }
-
+  
   public func validationState(_ state: TextFieldValidationState) -> Self {
     var textField = self
     textField.validationState = state
     return textField
   }
-
+  
   public func isEnabled(_ isEnabled: Bool) -> Self {
     var textField = self
     textField.isEnabled = isEnabled
     return textField
   }
-
+  
   public func withLeadingIcon(_ icon: Image) -> Self {
     var textField = self
     textField.leadingIcon = icon
     return textField
   }
-
+  
   public func withTrailingIcon(_ icon: Image) -> Self {
     var textField = self
     textField.trailingIcon = icon
     return textField
   }
-
+  
   public func withClearButton(onClear: @escaping () -> Void) -> Self {
     var textField = self
     textField.showClearButton = true
     textField.onClear = onClear
     return textField
   }
-
+  
   public func withTitle(_ title: String?) -> Self {
     var textField = self
     textField.title = title
@@ -191,13 +199,18 @@ extension JustTextField {
 #Preview {
   VStack {
     JustTextField("Enter name", text: .constant(""))
-    JustTextField("Enter name", text: .constant(""))
+    JustTextField("Disabled", text: .constant(""))
+      .disabled(true)
+    JustTextField("Disabled", text: .constant(""))
       .withLeadingIcon(Image(systemName: "person"))
-      .variant(.secure)
-      .validationState(.error)
+      .validationState(.warning)
     JustTextField("Enter name", text: .constant(""))
       .withLeadingIcon(Image(systemName: "person"))
       .variant(.secure)
       .validationState(.success)
+    JustTextField("Enter password", text: .constant(""))
+      .withLeadingIcon(Image(systemName: "key"))
+      .variant(.secure)
+      .validationState(.error)
   }
 }
