@@ -15,8 +15,8 @@ public struct JustButton<Content: View>: View {
   private var fullWidth = false
   private var variant = ButtonVariant.primary
   private var size = ButtonSize.medium
-  private var icon: Image?
-  private var systemImage: String?
+  private var leadingIcon: Image?
+  private var trailingIcon: Image?
   
   // MARK: - Init
   
@@ -40,24 +40,20 @@ public struct JustButton<Content: View>: View {
   public var body: some View {
     Button(action: action) {
       HStack {
+        if let leadingIcon {
+          leadingIcon
+            .sizeAsIcon()
+        }
+        
         Spacer()
         
         content()
         
         Spacer()
         
-        if let icon {
-          icon
-            .resizable()
-            .renderingMode(.template)
-            .scaledToFit()
-            .frame(height: .iconSizeSmall)
-        } else if let systemImage {
-          Image(systemName: systemImage)
-            .resizable()
-            .renderingMode(.template)
-            .scaledToFit()
-            .frame(height: .iconSizeSmall)
+        if let trailingIcon {
+          trailingIcon
+            .sizeAsIcon()
         }
       }
     }
@@ -65,9 +61,11 @@ public struct JustButton<Content: View>: View {
     .padding(.horizontal, .screenEdgePadding)
     .padding(.vertical, .paddingSmall)
   }
-  
-  // MARK: - Modifiers
-  
+}
+
+// MARK: - Modifiers
+
+extension JustButton {
   public func fullWidth(_ enabled: Bool = true) -> Self {
     var button = self
     button.fullWidth = enabled
@@ -92,25 +90,27 @@ public struct JustButton<Content: View>: View {
     return button
   }
   
-  public func withSystemImage(_ systemImage: String) -> Self {
+  public func withLeadingIcon(_ icon: Image) -> Self {
     var button = self
-    button.systemImage = systemImage
+    button.leadingIcon = icon
     return button
   }
   
-  public func withIcon(_ icon: Image) -> Self {
+  public func withTrailingIcon(_ icon: Image) -> Self {
     var button = self
-    button.icon = icon
+    button.trailingIcon = icon
     return button
   }
 }
+
+// MARK: - Preview
 
 #Preview {
   VStack {
     JustButton("Plain", action: {})
       .fullWidth()
       .variant(.plain)
-      .withSystemImage("chevron.right")
+      .withTrailingIcon(Image(systemName: "chevron.right"))
     JustButton(action: {}) {
       Text("Primary")
     }
