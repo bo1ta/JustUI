@@ -15,6 +15,8 @@ public struct JustButton<Content: View>: View {
   private var fullWidth = false
   private var variant = ButtonVariant.primary
   private var size = ButtonSize.medium
+  private var icon: Image?
+  private var systemImage: String?
   
   // MARK: - Init
   
@@ -37,7 +39,27 @@ public struct JustButton<Content: View>: View {
   
   public var body: some View {
     Button(action: action) {
-      content()
+      HStack {
+        Spacer()
+        
+        content()
+        
+        Spacer()
+        
+        if let icon {
+          icon
+            .resizable()
+            .renderingMode(.template)
+            .scaledToFit()
+            .frame(height: .iconSizeSmall)
+        } else if let systemImage {
+          Image(systemName: systemImage)
+            .resizable()
+            .renderingMode(.template)
+            .scaledToFit()
+            .frame(height: .iconSizeSmall)
+        }
+      }
     }
     .buttonStyle(JustButtonStyle(variant: variant, size: size, fullWidth: fullWidth, isEnabled: isEnabled))
     .padding(.horizontal, .screenEdgePadding)
@@ -69,6 +91,18 @@ public struct JustButton<Content: View>: View {
     button.size = size
     return button
   }
+  
+  public func withSystemImage(_ systemImage: String) -> Self {
+    var button = self
+    button.systemImage = systemImage
+    return button
+  }
+  
+  public func withIcon(_ icon: Image) -> Self {
+    var button = self
+    button.icon = icon
+    return button
+  }
 }
 
 #Preview {
@@ -76,6 +110,7 @@ public struct JustButton<Content: View>: View {
     JustButton("Plain", action: {})
       .fullWidth()
       .variant(.plain)
+      .withSystemImage("chevron.right")
     JustButton(action: {}) {
       Text("Primary")
     }

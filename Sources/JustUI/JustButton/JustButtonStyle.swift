@@ -102,7 +102,7 @@ public struct JustButtonStyle: ButtonStyle {
   
   private var shadowRadius: CGFloat {
     switch variant {
-    case .plain:
+    case .plain, .secondary:
       0
     default:
         .shadowRadiusExtraSmall
