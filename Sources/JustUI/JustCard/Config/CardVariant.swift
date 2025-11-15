@@ -53,46 +53,51 @@ public enum CardVariant {
     LinearGradient(
       colors: gradientColors,
       startPoint: .topLeading,
-      endPoint: .bottomTrailing
-    )
+      endPoint: .bottomTrailing)
   }
 
   private var gradientColors: [Color] {
     switch self {
     case .default:
-      return [
+      [
         Color(.white),
-        Color(.systemGray6)
-      ]
-    case .outlined:
-      return [
         Color(.systemGray6),
-        Color(.systemGray5)
       ]
+
+    case .outlined:
+      [
+        Color(.systemGray6),
+        Color(.systemGray5),
+      ]
+
     case .primary:
-      return [
+      [
         Color.accentColor.opacity(0.25),
-        Color.accentColor.opacity(0.55)
+        Color.accentColor.opacity(0.55),
       ]
+
     case .success:
-      return [
+      [
         Color.green.opacity(0.25),
-        Color.green.opacity(0.55)
+        Color.green.opacity(0.55),
       ]
+
     case .warning:
-      return [
+      [
         Color.orange.opacity(0.25),
-        Color.orange.opacity(0.55)
+        Color.orange.opacity(0.55),
       ]
+
     case .error:
-      return [
+      [
         Color.red.opacity(0.25),
-        Color.red.opacity(0.55)
+        Color.red.opacity(0.55),
       ]
+
     case .filled(let color):
-      return [
+      [
         color.opacity(0.25),
-        color.opacity(0.6)
+        color.opacity(0.6),
       ]
     }
   }

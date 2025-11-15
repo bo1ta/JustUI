@@ -76,8 +76,7 @@ public struct JustCard<Content: View>: View {
       .fill(variant.backgroundGradient)
       .overlay(
         RoundedRectangle(cornerRadius: .cornerRadiusLarge)
-          .strokeBorder(variant.borderColor, lineWidth: variant.borderWidth)
-      )
+          .strokeBorder(variant.borderColor, lineWidth: variant.borderWidth))
       .shadow(color: .black.opacity(0.08), radius: .shadowRadiusSmall, y: 6)
   }
 
