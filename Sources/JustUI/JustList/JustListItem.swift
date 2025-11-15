@@ -19,13 +19,13 @@ public struct JustListItem: View {
   private var showsChevron = false
   private var hideDivider = false
   private var onTap: (() -> Void)?
-  
+
   // MARK: - Init
 
   public init(title: String) {
     self.title = title
   }
-  
+
   // MARK: - Body
 
   public var body: some View {

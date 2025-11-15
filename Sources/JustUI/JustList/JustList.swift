@@ -10,14 +10,14 @@ import SwiftUI
 public struct JustList<Content: View>: View {
   private let content: () -> Content
   private var title: String?
-  
+
   // MARK: - Init
 
   public init(title: String? = nil, @ViewBuilder content: @escaping () -> Content) {
     self.title = title
     self.content = content
   }
-  
+
   // MARK: - Body
 
   public var body: some View {
