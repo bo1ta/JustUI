@@ -16,7 +16,7 @@ public struct JustCheckbox: View {
 
   public var body: some View {
     Image(systemName: "checkmark")
-      .font(.system(size: 14, weight: .bold))
+      .font(.justLabel)
       .foregroundColor(.white)
       .opacity(isChecked ? 1 : 0)
       .padding(6)

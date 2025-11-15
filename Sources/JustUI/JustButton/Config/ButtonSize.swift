@@ -25,10 +25,12 @@ public enum ButtonSize {
 
   var font: Font {
     switch self {
-    case .small, .medium:
-      .body
+    case .small:
+      .justLabel
+    case .medium:
+      .justBody
     case .large:
-      .title3
+      .justTitleMedium
     }
   }
 }

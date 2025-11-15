@@ -36,11 +36,11 @@ public struct JustToggle: View {
 
       VStack(alignment: .leading, spacing: .paddingSmall) {
         Text(title)
-          .font(.body)
+          .font(.justBody)
 
         if let subtitle {
           Text(subtitle)
-            .font(.caption)
+            .font(.justCaption)
             .foregroundStyle(.secondary)
         }
       }

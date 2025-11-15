@@ -103,23 +103,24 @@ public struct JustTextField: View {
       VStack(spacing: .paddingSmall) {
         if let title {
           Text(title)
-            .font(.body)
-            .fontWeight(.medium)
+            .font(.justLabel)
             .foregroundStyle(iconColor)
         }
 
         if variant == .secure {
           SecureField(text: text, prompt: nil) {
             Text(textHint)
-              .font(.footnote)
+              .font(.justCaption)
               .foregroundStyle(iconColor.opacity(0.5))
           }
+          .font(.justBody)
         } else {
           TextField(text: text, prompt: nil) {
             Text(textHint)
-              .font(.footnote)
+              .font(.justCaption)
               .foregroundStyle(iconColor.opacity(0.5))
           }
+          .font(.justBody)
         }
       }
 
